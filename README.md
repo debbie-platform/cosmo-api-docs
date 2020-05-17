@@ -1,2 +1,1 @@
-# platform-api-docs
- 
+# Cosmo API Docs
