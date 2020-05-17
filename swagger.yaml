@@ -1,0 +1,218 @@
+swagger: "2.0"
+info:
+  description: "The Debbie APIs is a RESTful interface, allowing you to programmatically update, add and access much of your data on the platform. It provides predictable URLs for accessing resources, and uses built-in HTTP features to receive commands and return responses. This makes it easy to communicate with third party systems."
+  version: "v1.0.0"
+  title: "Cosmo API Docs"
+  contact:
+    email: "support@debbie.dk"
+  x-logo:
+    url: "https://debbie-platform.github.io/cosmo-api-docs/deb-logo.svg"
+host: "api.cosmo.debbieapp.com"
+
+basePath: "/v1"
+tags:
+  - name: "Stars"
+    description: "Entities uploaded to Cosmo is called stars."
+  - name: "Users"
+    description: "Manipulate users of Cosmo."
+  - name: "Webhooks"
+    description: "Webhooks to receive new events from Cosmo."
+
+schemes:
+  - "https"
+paths:
+  /stars/subscribe:
+    post:
+      tags:
+        - "Stars"
+      summary: "Create webhook"
+      description: "All parameters should be send as part of the request body, in json format. An example of the body of a request hitting the /stars/subscribe endpoint would be."
+      operationId: "subscribe-star"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New subscribed star"
+          required: true
+          schema:
+            $ref: "#/definitions/NewStar"
+      responses:
+        "200":
+          description: "Successful operation"
+
+  /stars/unsubscribe/:referenceId:
+    put:
+      tags:
+        - "Stars"
+      summary: "Update star"
+      description: "Unsubscribes a user to a Star"
+      operationId: "Update star"
+      responses:
+        "200":
+          description: "Successful operation"
+
+  /stars/:referenceId:
+    get:
+      tags:
+        - "Stars"
+      summary: "Get Stars"
+      description: "Get star"
+      operationId: "get-star"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Star"
+
+  /webhooks:
+    post:
+      tags:
+        - "Webhooks"
+      summary: "Create webhook"
+      description: "Create new webhook"
+      operationId: "create-new-webhook"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New webhook object"
+          required: true
+          schema:
+            $ref: "#/definitions/NewWebhook"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Webhook"
+
+    get:
+      tags:
+        - "Webhooks"
+      summary: "Get webhooks"
+      description: "Get webhook"
+      operationId: "get-webhook"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Webhook"
+
+    delete:
+      tags:
+        - "Webhooks"
+      summary: "Delete webhook"
+      description: "Delete created webhook"
+      operationId: "delete-webhook"
+      responses:
+        "200":
+          description: "Successful operation"
+
+  /users/create:
+    post:
+      tags:
+        - "Users"
+      summary: "Create user"
+      description: "Create new user"
+      operationId: "create-new-user"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New user object"
+          required: true
+          schema:
+            $ref: "#/definitions/NewUser"
+      responses:
+        "200":
+          description: "Successful operation"
+
+  /users/DELETE:
+    delete:
+      tags:
+        - "Users"
+      summary: "Delete user"
+      description: "Delete created user"
+      operationId: "delete-user"
+      responses:
+        "200":
+          description: "Successful operation"
+
+securityDefinitions:
+  Header Parameter:
+    type: "apiKey"
+    name: "X-Cosmo-Auth-Token: <YOUR_VERY_SECRET_TOKEN>"
+    in: "header"
+    description: 'To authenticate any cosmoAPI request, you must include a "X-Cosmo-Auth-Token" header field, with your authentication token. Alternatively you can pass the authentication token as a query string parameter. The key/value pair should have the key "authToken" and the value should be your authentication token.'
+  Query Parameter:
+    type: "apiKey"
+    name: "authToken=<YOUR_VERY_SECRET_TOKEN>"
+    in: "query"
+
+definitions:
+  Address:
+    type: "object"
+    properties:
+      address:
+        type: "string"
+      coAddress:
+        type: "string"
+      zipcode:
+        type: "string"
+      city:
+        type: "string"
+      country:
+        type: "string"
+  Phone:
+    type: "object"
+    properties:
+      number:
+        type: "string"
+      locale:
+        type: "string"
+      isCompany:
+        type: "boolean"
+      referenceId:
+        type: "string"
+      name:
+        type: "string"
+      address:
+        $ref: "#/definitions/Address"
+      email:
+        type: "string"
+      phone:
+        $ref: "#/definitions/Phone"
+      AKSEnroll:
+        type: "boolean"
+  NewStar:
+    type: "object"
+  Star:
+    type: "object"
+  NewUser:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+      aksConfig:
+        type: "string"
+  NewWebhook:
+    type: "object"
+    properties:
+      endpoint:
+        type: "string"
+
+  Webhook:
+    type: "object"
+    properties:
+      webhookId:
+        type: "string"
+      endpoint:
+        type: "string"
+      createdAt:
+        type: "string"
+
+externalDocs:
+  description: "Find out more about Cosmo"
+  url: "https://debbie.dk/cosmo"
