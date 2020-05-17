@@ -65,7 +65,7 @@ paths:
             items:
               $ref: "#/definitions/Star"
 
-  /webhooks:
+  /hooks:
     post:
       tags:
         - "Webhooks"
@@ -89,8 +89,8 @@ paths:
       tags:
         - "Webhooks"
       summary: "Get webhooks"
-      description: "Get webhook"
-      operationId: "get-webhook"
+      description: "Get webhooks"
+      operationId: "get-webhooks"
       responses:
         "200":
           description: "Successful operation"
@@ -99,6 +99,7 @@ paths:
             items:
               $ref: "#/definitions/Webhook"
 
+  /hooks/:id:
     delete:
       tags:
         - "Webhooks"
