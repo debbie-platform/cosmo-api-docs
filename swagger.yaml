@@ -25,7 +25,7 @@ paths:
     post:
       tags:
         - "Stars"
-      summary: "Create webhook"
+      summary: "Subscribe star"
       description: "All parameters should be send as part of the request body, in json format. An example of the body of a request hitting the /stars/subscribe endpoint would be."
       operationId: "subscribe-star"
       parameters:
@@ -43,7 +43,7 @@ paths:
     put:
       tags:
         - "Stars"
-      summary: "Update star"
+      summary: "Unsubscribe star"
       description: "Unsubscribes a user to a Star"
       operationId: "Update star"
       responses:
@@ -54,7 +54,7 @@ paths:
     get:
       tags:
         - "Stars"
-      summary: "Get Stars"
+      summary: "Get Star"
       description: "Get star"
       operationId: "get-star"
       responses:
